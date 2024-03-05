@@ -1,0 +1,118 @@
+@use "@angular/material" as mat;
+
+:root {
+  --tooltip-bg: var(--light-03);
+  --tooltip-text: var(--light-primary-text);
+}
+
+/* VARIABLES */
+$dark-theme-primary: (
+  color: mat.$blue-palette,
+  scale: 500,
+);
+$dark-theme-accent: (
+  color: mat.$orange-palette,
+  scale: 600,
+);
+$dark-theme-warn: (
+  color: mat.$red-palette,
+  scale: 600,
+);
+
+/*    DARK THEME    */
+$app-dark-primary: mat.define-palette(
+    map_get($dark-theme-primary, color),
+    map_get($dark-theme-primary, scale)
+);
+$app-dark-accent: mat.define-palette(
+    map_get($dark-theme-accent, color),
+    map_get($dark-theme-accent, scale)
+);
+/* The "warn" palette is optional and defaults to red if not specified.*/
+$app-dark-warn: mat.define-palette(
+    map_get($dark-theme-warn, color),
+    map_get($dark-theme-warn, scale)
+);
+
+$app-dark-theme: mat.define-dark-theme(
+    (
+      color: (
+        primary: $app-dark-primary,
+        accent: $app-dark-accent,
+        warn: $app-dark-warn,
+      ),
+    )
+);
+
+/*   DARK THEME TOOLBAR    */
+$dark-primary-toolbar: mat.define-palette(mat.$grey-palette, 900);
+$dark-accent-toolbar: mat.define-palette(mat.$grey-palette, 800);
+$dark-warn-toolbar: mat.define-palette(mat.$grey-palette, 700);
+
+$app-dark-theme-toolbar: mat.define-dark-theme(
+    (
+      color: (
+        primary: $dark-primary-toolbar,
+        accent: $dark-accent-toolbar,
+        warn: $dark-warn-toolbar,
+      ),
+    )
+);
+
+/*    DARK THEME CLASSES    */
+/* Apply the dark appearance only when the `.custom-dark-appearance` CSS class is applied*/
+/* to an ancestor element of the components (such as `body`).*/
+.custom-dark-theme-01 {
+  @include mat.all-component-colors($app-dark-theme);
+  @include mat.core-color($app-dark-theme);
+  @include mat.toolbar-color($app-dark-theme-toolbar);
+
+  /* Custom elements */
+  * {
+
+    /**
+      * Autofill
+     */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    textarea:-webkit-autofill:active,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus,
+    select:-webkit-autofill:active {
+      -webkit-text-fill-color: var(--dark-primary-text) !important;
+      -webkit-box-shadow: transparent !important;
+      transition: background-color 5000s ease-in-out 0s !important;
+    }
+
+    /* Custom colors - START */
+    [custom-colors^="_1"] {
+      background-color: var(--dark-03) !important;
+    }
+
+    [custom-colors^="_2"] {
+      background-color: var(--dark-04) !important;
+    }
+
+    /* Custom colors - END */
+
+    /* Sidenav - START */
+    app-sidenav {
+      .resize-handle {
+        background-color: var(--dark-primary-text);
+
+        &:hover {
+          background-color: #5D9FEBFF;
+        }
+      }
+    }
+
+    /* Sidenav - END */
+
+  }
+}
